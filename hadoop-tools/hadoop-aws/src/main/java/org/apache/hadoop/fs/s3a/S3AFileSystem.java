@@ -40,6 +40,7 @@ import com.amazonaws.auth.AWSCredentialsProviderChain;
 
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.S3ClientOptions;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectsRequest;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
@@ -233,6 +234,7 @@ public class S3AFileSystem extends FileSystem {
     }
 
     s3 = new AmazonS3Client(credentials, awsConf);
+    s3.setS3ClientOptions(new S3ClientOptions().withPathStyleAccess(true));
     String endPoint = conf.getTrimmed(ENDPOINT,"");
     if (!endPoint.isEmpty()) {
       try {
